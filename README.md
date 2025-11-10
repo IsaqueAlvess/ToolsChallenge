@@ -45,6 +45,8 @@ A API segue uma arquitetura **camada limpa**, separando responsabilidades:
 
 ## ⚙️ Funcionalidades
 
+- Swagger UI: http://localhost:8080/swagger-ui.html
+
 | Funcionalidade | Método | Endpoint | Descrição |
 |----------------|--------|-----------|------------|
 | 🧾 Criar pagamento | `POST` | `/api/v1/pagamentos` | Cria e processa um novo pagamento |
