@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface TransacaoRepository extends JpaRepository<Transacao, UUID> {
-    Optional<Transacao> findById(UUID id);
+public interface TransacaoRepository extends JpaRepository<Transacao, String> {
+    Optional<Transacao> findById(String id);
     List<Transacao> findAll();
 }

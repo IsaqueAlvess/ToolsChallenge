@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -16,10 +15,10 @@ import java.util.UUID;
 public class Transacao implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @Column(length = 30, nullable = false, unique = true)
+    private String id;
 
-    private Long cartao;
+    private String cartao;
 
     @Embedded
     private Descricao descricao;
