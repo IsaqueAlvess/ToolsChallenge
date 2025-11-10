@@ -3,6 +3,7 @@ package br.com.isaque.pagamentos.service;
 import br.com.isaque.pagamentos.dto.PagamentoResponse;
 import br.com.isaque.pagamentos.entity.Transacao;
 import br.com.isaque.pagamentos.repository.TransacaoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +18,16 @@ public class ConsultaService {
     private final TransacaoRepository transacaoRepository;
 
     public PagamentoResponse consultarPorId(String id){
-        Optional<Transacao> transacao = transacaoRepository.findById(id);
-
-        PagamentoResponse.TransacaoResponse response = new PagamentoResponse.TransacaoResponse(
-                transacao.get().getCartao(),
-                transacao.get().getId(),
-                transacao.get().getDescricao(),
-                transacao.get().getFormaPagamento()
-        );
-
-        return new PagamentoResponse(response);
-
+        return transacaoRepository.findById(id)
+                .map(transacao -> new PagamentoResponse(
+                        new PagamentoResponse.TransacaoResponse(
+                                transacao.getCartao(),
+                                transacao.getId(),
+                                transacao.getDescricao(),
+                                transacao.getFormaPagamento()
+                        )
+                ))
+                .orElseThrow(() -> new EntityNotFoundException("Transação não encontrada para o ID: " + id));
     }
 
     public List<PagamentoResponse> listarTodos(){
